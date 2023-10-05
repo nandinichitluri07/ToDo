@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <title>
+      To do APP
+    </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/8ddb3cdf81.js"crossorigin="anonymous"></script>
+<script>
+function strikethrough(checkbox){
+   var row = checkbox.parentNode.parentNode;
+   var text1 = row.getElementsByTagName("td")[1];
+   var text2=row.getElementsByTagName("td")[2];
+   var text3=row.getElementsByTagName("td")[3];
+   var text4=row.getElementsByTagName("td")[4];
+    if (checkbox.checked) {
+      text1.style.textDecoration = "line-through";
+      text2.style.textDecoration = "line-through";
+       text3.style.textDecoration = "line-through";
+       text4.style.textDecoration = "line-through";
+       console.log("TASK FINISHED SUCCESFULLY");
+      } 
+      else {text1.style.textDecoration = "none";
+      text2.style.textDecoration = "none";
+      text3.style.textDecoration = "none";
+      text4.style.textDecoration = "none";
+     }
+ }
+ </script>
+<style>
+body{
+  background: rgb(131, 183, 204);
+  margin-left: 250px;
+  margin-right: 300px;
+ 
+}
+h1{
+
+transform-origin:center;
+background: rgb(221, 168, 107);
+color:rgb(201, 90, 108);
+}
+
+
+
+</style>
+</head>
+<body>
+  <section class="container">
+    <div align="center">
+      <h1 align="center">TODO APP</h1>
+      <form action="/create-task" method="POST">
+        <div class="main">
+        <table class="table">
+          <thead>
+            <tr class="table-active">
+              <th >Add Task</th>
+              <th >Category</th>
+              <th >Date</th>
+              <th >Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <div class="xyz">
+            <tr>
+              <td> <input type="text" name="description"placeholder="What do you need to do?" style="font-size: 20px;"required></input></th>
+                <td > <select name="category" style="font-size: 20px" required>
+                  <option value="" disabled selected>Choose a Category</option>
+                  <option></option>
+                  <option>PERSONAL</option>
+                  <option>WORK</option>
+                  <option>SCHOOL</option>
+                  <option>CLEANING</option>
+                  <option>SHOPPING</option>
+                  <option>BUSINESS</option>
+                  <option>HEALTH</option>
+                  <option>OTHER</option>
+                </select></th>
+              <td > <input type="date" name="date"  style="font-size: 20px"  ></th>
+              <td > <input type="time" name="time"  style="font-size: 20px"  ></th>
+
+                  </tr>
+            </div>
+          </tbody>
+        </table>
+      </div>
+        <div align = "center"><input type="submit" class="btn btn-success" style="font-size: 30px; " value="ADD TASK" data-inline="true"></div>
+        </form>
+      </section>
+      <div class="mytable">
+        <h1 align="center">TASKS LIST</h1>
+        <form action="/delete-task" method="GET">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Task</th>
+                <th>Category</th>
+                <th>Due date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <% for(let i of task) { %>
+             <tr>
+              <td> <input type="checkbox" name="<%= i._id%>" onchange="strikethrough(this)"/></td>
+              <td> <p id="task-description"><%=i.description %></td>
+              <!-- <td><p id="task-category"> <%= i.category%></p></td> -->
+              <% if (i.category) { %><td><p id="task-category"><%= i.category%></p></td>
+              <% } else { %><td><p id="task-category"> -------</p></td><% } %>
+              <% if (i.date) { %><td><p id="due-date"><%= i.date%></p></td>
+              <% } else { %><td><p id="due-date"> No Deadline</p></td><% } %>
+              <% if (i.time) { %><td><p id="time"><%= i.time %></p></td>
+              <% } else { %><td><p id="time"> No Limit</p></td><% } %>
+              </tr>
+<% } %>
+</table>
+<div align = "center"><input type="submit" class="btn btn-danger" style="font-size: 30px" value="DELETE TASK" data-inline="true"></div>
+           </form>
+        </div>
+   </body>
+</html>
